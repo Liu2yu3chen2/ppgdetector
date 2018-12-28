@@ -2,18 +2,20 @@
 #define __FILTER__
 
 #include "sigpack.h"
-#include "utils.hpp"
+#include "utils.h"
 #include <string>
 #include <vector>
+#include <QObject>
 
-using namespace std;
+//using namespace std;
 using namespace sp;
 
 #define min(a,b) ((a)>(b) ? b:a)
 #define max(a,b) ((a)<(b) ? b:a)
 #define GNUPLOT 0
 
-class Filter{
+class Filter
+{
 private:
 	// Sampling frequency
     double fs;
@@ -27,8 +29,9 @@ private:
 
 	// Signals
     std::vector<double> raw, window;
-	std::vector<double> peak, signal, signalTmp;
-	std::vector<int> peakPos, peakPosTmp;
+    std::vector<double> peak, signal, signalTmp;
+    std::vector<int> peakPos, peakPosTmp;
+    std::vector<double> frequency, frequencyTmp;
 
 	int windowSize;
     int findRange;
@@ -37,6 +40,7 @@ private:
 	bool outputFlag;
 	int rankSigOut;
 	int rankPeakPosOut;
+    int frequencyPosOut;
 
     #if GNUPLOT
     gplot gp0, gp1;
@@ -60,6 +64,8 @@ public:
 	std::vector<double> getSignal();
 	
 	std::vector<int> getPeakPos();
+
+    std::vector<double> getFrequency();
 
 	void clearTmpData();
 };
